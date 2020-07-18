@@ -115,3 +115,51 @@ random_cv.fit(X_train,Y_train)
 
 # Finding the best parameter values for optimizing the model
 random_cv.best_estimator_
+
+# Updating regressor with optimum parameters
+regressor = xgboost.XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+             colsample_bynode=1, colsample_bytree=1, gamma=0,
+             importance_type='gain', learning_rate=0.1, max_delta_step=0,
+             max_depth=2, min_child_weight=1, missing=None, n_estimators=500,
+             n_jobs=1, nthread=None, objective='reg:linear', random_state=0,
+             reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
+             silent=None, subsample=1, verbosity=1)
+
+# Fitting training set to our regressor
+regressor.fit(X_train, Y_train)
+
+# Creating a pickle file so that to avoid repeteadly training dataset 
+import pickle
+filename = 'finalized_model.pkl'
+pickle.dump(classifier, open(filename, 'wb'))
+
+# Predicting the test set results
+Y_pred = regressor.predict(test_dataset)
+
+# PART 2 - MAKE THE ANN!
+
+# Impoerting the Keras libraries and packages
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Initialising the ANN
+classifier = Sequential()
+
+# Adding the input layer and the first hidden layer
+classifier.add(Dense(output_dim = 50, init = 'uniform', activation = 'relu', input_dim = 174))
+
+# Adding the second hidden layer
+classifier.add(Dense(output_dim = 25, init = 'uniform', activation = 'relu'))
+
+# Adding the third hidden layer
+classifier.add(Dense(output_dim = 50, init = 'uniform', activation = 'relu'))
+
+# Adding the output layer
+classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
+
+# Compiling the ANN
+classifier.compile(loss='binary_crossentropy', optimizer='Adamax' )
+
+# Fitting the ANN to the training set
+classifier.fit(X_train, Y_train, validation_split=0.20, batch_size = 10, nb_epoch = 1000)
