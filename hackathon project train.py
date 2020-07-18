@@ -1,6 +1,6 @@
 # Hackathon Project Train
 
-#PART I- Data Preprocessing Template
+# Data Preprocessing Template
 
 # Importing the libraries
 import numpy as np
@@ -128,17 +128,12 @@ regressor = xgboost.XGBRegressor(base_score=0.5, booster='gbtree', colsample_byl
 # Fitting training set to our regressor
 regressor.fit(X_train, Y_train)
 
-# Creating a pickle file so that to avoid repeteadly training dataset 
-import pickle
-filename = 'finalized_model.pkl'
-pickle.dump(classifier, open(filename, 'wb'))
-
 # Predicting the test set results
 Y_pred = regressor.predict(test_dataset)
 
-# PART 2 - MAKE THE ANN!
+# MAKE THE ANN!
 
-# Impoerting the Keras libraries and packages
+# Importing the Keras libraries and packages
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
@@ -152,14 +147,14 @@ classifier.add(Dense(output_dim = 50, init = 'uniform', activation = 'relu', inp
 # Adding the second hidden layer
 classifier.add(Dense(output_dim = 25, init = 'uniform', activation = 'relu'))
 
-# Adding the third hidden layer
-classifier.add(Dense(output_dim = 50, init = 'uniform', activation = 'relu'))
+"""# Adding the third hidden layer
+classifier.add(Dense(output_dim = 50, init = 'uniform', activation = 'relu'))"""
 
 # Adding the output layer
 classifier.add(Dense(output_dim = 1, init = 'uniform', activation = 'sigmoid'))
 
 # Compiling the ANN
-classifier.compile(loss='binary_crossentropy', optimizer='Adamax' )
+classifier.compile(loss = 'binary_crossentropy', optimizer='adam')
 
 # Fitting the ANN to the training set
 classifier.fit(X_train, Y_train, validation_split=0.20, batch_size = 10, nb_epoch = 1000)
