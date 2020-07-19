@@ -1,4 +1,11 @@
 # Hackathon Project Train
+# TEAM NAME - CODER GIRLS
+# TEAM PATICIPANTS _
+# Avneet Kaur
+# Ruhee Jain
+# Muskan Jaglan
+# Sejal Jain
+# Aanchal Rakheja
 
 # Data Preprocessing Template
 
@@ -11,7 +18,6 @@ import seaborn as sns
 #IMPORTING THE DATASET
 train_set = pd.read_csv('train.csv')
 
-train_set.isnull().sum()
 train_set.shape
 
 # FILL MISSING VALUES
@@ -60,13 +66,17 @@ def category_onehot_multcols(multcolumns):
     train_set_final=pd.concat([final_train_set,train_set_final],axis=1)
         
     return train_set_final
-main_train_set=train_set.copy()
+
+# Copying Training Set
+main_train_set = train_set.copy()
 
 # Combine Test Data
 test_set = pd.read_csv('formulatedtest.csv')
 final_train_set = pd.concat([train_set,test_set],axis=0,sort=True)
 
 final_train_set.shape
+
+# Applying Encoding Categorical Data to all the categorical columns
 final_train_set = category_onehot_multcols(columns)
 
 # Removing the duplicated columns
@@ -130,6 +140,23 @@ regressor.fit(X_train, Y_train)
 
 # Predicting the test set results
 Y_pred = regressor.predict(test_dataset)
+
+# Create Sample Submission file and Submit using ANN
+pred = pd.DataFrame(Y_pred)
+sub_set = pd.read_csv('sample_submission.csv')
+datasets = pd.concat([sub_set['Id'],pred],axis=1)
+datasets.columns = ['Id','SalePrice']
+datasets.to_csv('sample_submission.csv',index=False)
+
+pred.columns = ['SalePrice']
+temp_dataset = train_set['SalePrice'].copy()
+temp_dataset.column = ['SalePrice']
+train_set.drop(['SalePrice'],axis=1,inplace=True)
+train_set = pd.concat([train_set,temp_dataset],axis=1)
+test_set = pd.concat([test_set,pred],axis=1)
+X_train = train_set.drop(['SalePrice'],axis=1)
+Y_train = train_set['SalePrice']
+
 
 # MAKE THE ANN!
 

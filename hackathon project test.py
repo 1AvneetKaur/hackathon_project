@@ -1,6 +1,13 @@
 # Hackathon Project Test
+# TEAM NAME - CODER GIRLS
+# TEAM PATICIPANTS _
+# Avneet Kaur
+# Ruhee Jain
+# Muskan Jaglan
+# Sejal Jain
+# Aanchal Rakheja
 
-#PART I- Data Preprocessing Template
+# Data Preprocessing Template
 
 # Importing the libraries
 import numpy as np
