@@ -1,11 +1,4 @@
 # Hackathon Project Test
-# TEAM NAME - CODER GIRLS
-# TEAM PATICIPANTS _
-# Avneet Kaur
-# Ruhee Jain
-# Muskan Jaglan
-# Sejal Jain
-# Aanchal Rakheja
 
 # Data Preprocessing Template
 
